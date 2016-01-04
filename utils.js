@@ -1,6 +1,7 @@
 /* jshint strict: true */
 /* global jQuery: false, $: false */
 
+var UTILS = UTILS || {};
 (function ($) {
 	'use strict';
 	/*todo Cookies*/
@@ -13,29 +14,29 @@
 	 * @method     verticalAlignElements
 	 * @param      {jQuery Object}  $elmToAlign  element to position
 	 */
-	var verticalAlignElements = function($elmToAlign) {
+	UTILS.verticalAlignElements = function($elmToAlign) {
 		$elmToAlign = $elmToAlign || $('.js-vertical-align-large, .js-vertical-align');
 
 		$elmToAlign.each(function(){
 			var $this = $(this);
 			var nOffset = ($this.outerHeight())/2;
 
-			var sCurrentBreakpoint = MB.getBreakpoint();
-			var bInScope = false;
+			// var sCurrentBreakpoint = MB.getBreakpoint();
+			// var bInScope = false;
 
 			/* test scope */
-			if($this.hasClass('js-vertical-align-large')){
-				bInScope = (sCurrentBreakpoint === 'xlarge' ||  sCurrentBreakpoint === 'large' ||  sCurrentBreakpoint === 'smallmedium');
-			}
-			if($this.hasClass('js-vertical-align')){
-				bInScope = true;
-			}
+			// if($this.hasClass('js-vertical-align-large')){
+			// 	bInScope = (sCurrentBreakpoint === 'xlarge' ||  sCurrentBreakpoint === 'large' ||  sCurrentBreakpoint === 'smallmedium');
+			// }
+			// if($this.hasClass('js-vertical-align')){
+			// 	bInScope = true;
+			// }
 
-			if(bInScope) {
+			// if(bInScope) {
 				$this.css('margin-top', '-'+nOffset+'px');
-			} else {
-				$this.css('margin-top', '');
-			}
+			// } else {
+			// 	$this.css('margin-top', '');
+			// }
 		});
 	};
 	
@@ -46,7 +47,7 @@
 	 *
 	 * @method     bypassFocus
 	 */
-	var bypassFocus = function(){
+	UTILS.bypassFocus = function(){
 		$("#bypass a").on('click', function(e){
 			var sSkipTo = "#"+this.href.split('#')[1];
 			$(sSkipTo).attr('tabindex', -1).on('blur focusout', function () {
@@ -60,7 +61,7 @@
 	 *
 	 * @method     handleHash
 	 */
-	var handleHash = function(){
+	UTILS.handleHash = function(){
 		if(window.location.hash === '') {
 			return;
 		}
@@ -94,7 +95,7 @@
 	 * @param      {string}  assignchar  assign character, default: "="
 	 * @return     {object}  result of the conversion
 	 */
-	var getTagObject = function(sData, separator, assignchar){
+	UTILS.getTagObject = function(sData, separator, assignchar){
 		separator = separator || ';';
 		assignchar = assignchar || '=';
 
@@ -113,7 +114,7 @@
 	 *
 	 * @method     handleSticky
 	 */
-	var handleSticky = function() {
+	UTILS.handleSticky = function() {
 		//Handle Sticky nav for small/medium (large handled with nav.js)
 		var $sticky = $('.sticky');
 		var $stickyWrapper = $sticky.parent();

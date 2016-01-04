@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr-FR" class="home home-1">
+<head>
+	<meta charset="UTF-8">
+	<title>Utils</title>
+	
+	<meta name="viewport" content="width=device-width">
+
+	<style>
+		*{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-o-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		body {
+			margin:0; padding:20px;
+			background:#FAFAFA; color:#333;
+			font:13px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
+		h1 {
+			margin:0 0 1em; padding-bottom:0.2em;
+			border-bottom:1px solid #CCC;
+			font:italic normal 26px/1.5 Georgia, 'Times New Roman', serif;
+		}
+		/*.blocks-wrapper{
+			overflow:hidden;
+		}
+		.blocks-wrapper a {
+			color:#FFF;
+		}*/
+		.block{
+			background:#FFF;
+			border:2px solid #EEE;
+			width:80%;
+			height:150px;
+			max-width:600px;
+		}
+		.section {
+			position:relative;
+		}
+		.block2{
+			border-color:#E08480;
+			background:#F1A88E;
+		}
+		.small-block{
+			float:left;
+			margin:0 1% 2em; padding:.3em 1em;
+			border-bottom:5px solid #263f82;
+			width:12%;
+			background:#2b4792; color:#FFF;
+		}
+
+		#verticalAlignElements {
+			background:#FFF;
+			border:2px solid #EEE;
+			width:80%;
+			height:150px;
+			max-width:600px;
+		}
+		#tagtoconvertresult {
+			overflow:auto;
+			font-family:monospace;
+		}
+		#tagtoconvertresult p {
+			margin:0;
+		}
+
+		/*UTILS*/
+		.vertical-align {
+			position:absolute; top:50%;
+		}
+	</style>
+</head>
+<body>
+	<h1>Utils</h1>
+
+	<h2>1. bypassFocus</h2>
+	<ul id="bypass">
+		<li><a href="#nav">nav</a></li>
+		<li><a href="#search">search</a></li>
+		<li><a href="#verticalAlignElements">verticalAlignElements</a></li>
+		<li><a href="#getTagObject">getTagObject</a></li>
+		<li><a href="#handleHash">handleHash</a></li>
+	</ul>
+
+	<h2>2. verticalAlignElements</h2>
+
+	<div id="verticalAlignElements" class="section">
+		<p class="vertical-align">Element to align vertically</p>
+	</div>
+	
+	<h2>3. getTagObject</h2>
+
+	<div id="getTagObject">
+		<form action="#" method="POST" name="tagtoconvertform" id="tagtoconvertform">
+			<label for="tagtoconvert">Tag to convert:</label>
+			<input type="text" name="tagtoconvert" id="tagtoconvert">
+			<button type="submit">Generate object</button>
+		</form>
+
+		<h3>Result:</h3>
+		<div class="block" id="tagtoconvertresult"></div>
+	</div>
+
+	<h2>4. handleHash</h2>
+	<div id="handleHash">This div ID is #handleHash</div>
+
+	<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="utils.js"></script>
+	<script>
+		//verticalAlignElements
+		UTILS.verticalAlignElements($('.vertical-align'));
+
+		//handleHash
+		UTILS.handleHash();
+
+		//getTagObject
+		$('#tagtoconvertform').submit(function(e){
+			e.preventDefault();
+			var tag = $('#tagtoconvert').val();
+			var result = UTILS.getTagObject(tag);
+			console.log(result);
+			console.log(JSON.stringify(result));
+
+			var resultHTML = '{';
+			for (var property in result) {
+				resultHTML += ' \''+property + '\': \'' + result[property]+'\',';
+			}
+			if(resultHTML.match(',')) { resultHTML = resultHTML.slice(0, - 1); }
+			resultHTML += '}';
+			$('#tagtoconvertresult').append('<p>&gt; '+resultHTML+'</p>');
+		});
+
+		//bypassFocus
+		UTILS.bypassFocus();
+	</script>
+</body>
+</html>
